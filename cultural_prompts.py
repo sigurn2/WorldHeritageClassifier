@@ -16,7 +16,6 @@ culture_type = [  # 文化类型
 
 ]
 
-
 culture_value = [  # iter 1  文化价值
     'Folk culture',  # 民俗文化
     'ethnic customs',  # 民族风情
@@ -77,7 +76,7 @@ problem_sets = {
 }
 
 
-def gen_cultural_questions(name: str) :
+def gen_cultural_questions(name: str):
     res = {}
     for k, v in problem_sets.items():
         problem = f"""Please choose one option\
@@ -85,4 +84,3 @@ def gen_cultural_questions(name: str) :
          These options are：{v}"""
         res[k] = problem
     return res
-

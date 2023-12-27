@@ -1,8 +1,10 @@
 import re
 
 
+# this file is aim to trim the original coordination into standard form.
 def trim_longitude_latitude(s: str):
-    pattern = r'([NS]\d{1,2}(?:\.\d+)?\s\d{1,2}(?:\.\d+)?\s\d{1,2}(?:\.\d+)?)\s([EW]\d{1,3}(?:\.\d+)?\s\d{1,2}(?:\.\d+)?\s\d{1,2}(?:\.\d+)?)'
+    pattern = (r'([NS]\d{1,2}(?:\.\d+)?\s\d{1,2}(?:\.\d+)?\s\d{1,2}(?:\.\d+)?)\s([EW]\d{1,3}(?:\.\d+)?\s\d{1,'
+               r'2}(?:\.\d+)?\s\d{1,2}(?:\.\d+)?)')
     match = re.search(pattern, s)
     if match:
         return match.group()

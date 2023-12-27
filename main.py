@@ -1,9 +1,9 @@
 import asyncio
-import os
-
 import openpyxl
 from openai import AsyncOpenAI
 from tqdm import tqdm
+
+from cultural_single_prompts import architecture_generator
 
 
 async def call_openai(client, s):
@@ -14,13 +14,13 @@ async def call_openai(client, s):
     return c
 
 
-async def process_entity(client, text):
+async def process_entity(client, text, heritage):
     prompt = f"""
-    Your task is to analyze the attributes of world heritages.
+    Your task is to analyze the attributes of world heritage.
+    Heritage: ```{heritage}```
     Classify task: ```{text}```
     Output limitations:
-    1. Less than 5 words
-    2. 回答最简结果，并且不包含符号，单词首字母大写
+    1. Return the most concise answer less than 5 words
     """
 
     #  removed If you can't find a proper option, provide an answer without quotes.
@@ -46,6 +46,7 @@ def question_generator(type_: str, name: str) -> dict:
 
 async def process_heritage(client, heritage, sort_, header_dict, i, sheet, wb):
     prompts = question_generator(sort_, heritage)  # Generate prompts
+
     for attr, prompt in prompts.items():
         answer = await process_entity(client, prompt)
         # print(f"{i} finished")
@@ -60,11 +61,11 @@ async def main():
     import yaml
     with open('config.yml', 'r') as yaml_file:
         config = yaml.safe_load(yaml_file)
-    client = AsyncOpenAI(
-        api_key=config['credentials']['api_key'],
-        base_url="https://api.chatanywhere.com.cn/v1",
-        max_retries=3
-    )
+        client = AsyncOpenAI(
+            api_key=config['credentials']['api_key'],
+            base_url="https://api.chatanywhere.com.cn/v1",
+            max_retries=3
+        )
     file = "heritage.xlsx"
     wb = openpyxl.load_workbook(file)
     sheet = wb.active
@@ -78,7 +79,7 @@ async def main():
     tasks = []
     for i, heritage in enumerate(tqdm(heritages)):
         sort_ = sorts[i]
-        task = process_heritage(client, heritage, sort_, header_dict, i, sheet,wb)
+        task = process_heritage(client, heritage, sort_, header_dict, i, sheet, wb)
         tasks.append(task)
 
     await asyncio.gather(*tasks)

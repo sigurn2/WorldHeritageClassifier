@@ -1,22 +1,7 @@
-#  历史、艺术、或科学、美学、人类学
+#  this prompt is aim to sort natural heritages into three types: tangible, intangible and cultural landscape ( mixin )
 
+def gen_nat_sort(name: str):
 
-historical_value = [
-
-]
-
-art_value = [
-
-]
-
-scientific_value = [
-
-]
-
-aesthetics_value = [
-
-]
-
-archaeology_value = [
-
-]
+    return f'''Which type can describe {name} best? Choose one option from tangible/intangible/cultural landscape
+    (cultural landscape is the mix of tangible and intangible), your answer should be few words.
+    '''
