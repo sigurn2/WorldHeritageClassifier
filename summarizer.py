@@ -10,7 +10,7 @@ if __name__ == '__main__':
             base_url="https://api.chatanywhere.com.cn/v1",
             max_retries=3
         )
-    file = "heritage.xlsx"
+    file = "back.xlsx"
     wb = openpyxl.load_workbook(file)
     sheet = wb.active
 
@@ -19,9 +19,15 @@ if __name__ == '__main__':
     target_column = 'S'
     attrs = [cell.value for cell in sheet[target_column][1:]]
     content = f'''
-    I will give you a list, please summarize these values and divide them into some abstract types
-    {attrs}
-    '''
+    You are an expert about world heritage
+    I will give you a list {attrs}
+    You should do my orders step by step
+    1. summarize these values and divide them into some abstract types
+    2. use a scientific way to merge them into more reasonable types and reduce the redundancy
+    3. use a scientific way to merge them into more reasonable types and make sure every option is exclusive, 
+    options should be in a slice 
+    You should return me a python map, this map contain the full data mapping between original data and the new type
+'''
     prompt = {"role": "user", "content": content}
     c = client.chat.completions.create(
         messages=[prompt],
