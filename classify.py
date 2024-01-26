@@ -1,17 +1,21 @@
 from openai import Client
 import openpyxl
+import winsound
 
-attr_list = ["Ancient and Prehistoric Architecture",
-             "Classical and European Architectural Styles (includes Renaissance, Baroque, Gothic, Romanesque, Byzantine, Roman)",
-             "Islamic and Middle Eastern Architecture",
-             "Colonial and Industrial Revolution Architecture",
-             "Asian Architectural Styles",
-             "South American and Mesoamerican Architecture",
-             "Polynesian and Pacific Island Architecture",
-             "African and Native American Architecture",
-             "Norse and Icelandic Architecture",
-             "Art and Cave Paintings"]
-pos = "S"
+attr_list = [
+    """ 
+A: Preservation of traditional crafts and cultural traditions
+B: Cultural significance and recognition
+C: Skilled craftsmanship and heritage preservation
+D: Unique cultural identity and tradition
+E: Artistic expression and significance
+F: Contribution to cultural value and recognition
+G: Showcasing of cultural heritage
+H: Intrinsic cultural significance
+I: Unique architectural and artistic value
+    """
+]
+pos = "AS"
 if __name__ == '__main__':
     import yaml
 
@@ -20,6 +24,7 @@ if __name__ == '__main__':
         client = Client(
             api_key=config['credentials']['api_key'],
             base_url="https://api.chatanywhere.com.cn/v1",
+
             max_retries=3
         )
     file = "heritage.xlsx"
@@ -35,8 +40,9 @@ if __name__ == '__main__':
         content = f'''
         You are an expert about world heritage
         I will give you a list {attr_list}
-        You should choose a appropriate attribute for this heritage: {heritage}
-        Your answer is one option, just shut the fuck up and tell me your choice
+        You should choose a appropriate option for this heritage: {heritage}
+        The answer must a simple letter that I gave you
+        Example: A
         '''
         prompt = {"role": "user", "content": content}
         c = client.chat.completions.create(
@@ -46,5 +52,6 @@ if __name__ == '__main__':
         ans = c.choices[0].message.content
         cell.value = ans
         print(ans)
-        wb.save("heritage.xlsx")
+    wb.save("heritage.xlsx")
+    winsound.PlaySound("SystemExit", winsound.SND_ALIAS)
     print("fin")

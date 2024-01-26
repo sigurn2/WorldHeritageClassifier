@@ -2,18 +2,19 @@ import asyncio
 import time
 
 import openpyxl
+import yagmail
 from openai import AsyncOpenAI
 
 ## iteration1
 architecture_style = '''find an appropriate architectural style can summarize this heritage '''
 architecture_period = '''find an appropriate architectural period can summarize this heritage '''
-architecture_texture = '''find an appropriate texture of heritage'''
+architecture_texture = '''Tell me what are the main building materials of this world cultural heritage site'''
 architecture_method = '''find an appropriate building method can summarize this heritage'''
 architecture_achievement = '''summarize this heritage most important architecture achievement'''
 architecture_function = '''find a function from religious, political, or social purposes that can summarize this 
 heritage'''
 architecture_ornamentation = '''Architecture encompasses the visual and aesthetic qualities of a structure, including 
-its colors, textures, ornamentation, and decorative elements. Summarize this heritage's ornamentation'''
+its colors, textures, ornamentation, and decorative elements. Introduce this heritage's ornamentation'''
 architecture_ingenuity = '''architecture within world cultural heritage sites often reflects the 
 technological advancements and innovative solutions developed by ancient civilizations. The use of advanced construction
  techniques, sophisticated engineering systems, and artistic craftsmanship demonstrates the ingenuity and technical 
@@ -32,13 +33,13 @@ intangible_practices = "What intangible cultural practices or traditions are rec
 intangible_contribution = "How does the intangible cultural heritage at the site contribute to the cultural identity and diversity of the community?"
 intangible_authenticity = "Are there any specific indicators of the intangible cultural heritage's authenticity or traditional knowledge at the site?"
 intangible_safeguarding = "How has the site ensured the safeguarding and transmission of its intangible cultural heritage?"
-intangible_role = ("Does the intangible cultural heritage at the site play a significant role in its recognition as a "
+intangible_role = ("What is the role that the intangible cultural heritage at the site play in its recognition as a "
                    "world cultural heritage?")
 traditional_crafts = "What traditional crafts or artisanal skills are associated with the world cultural heritage site? "
 traditional_reflection = "How do these traditional crafts showcase the cultural heritage and craftsmanship of the community?"
 traditional_uniqueness = "Are there any specific indicators of the quality, uniqueness, or traditional techniques used in the crafts at the site?"
 traditional_preservation = "How has the site supported the preservation and promotion of traditional crafts?"
-traditional_contribution = "Do the traditional crafts at the site contribute to its recognition as a world cultural heritage?"
+traditional_contribution = "What does the traditional crafts at the site contribute to its recognition as a world cultural heritage?"
 
 problem_set = {
     # "architecture_style": architecture_style,
@@ -50,25 +51,25 @@ problem_set = {
     # "architecture_ornamentation": architecture_ornamentation,
     # "architecture_ingenuity": architecture_ingenuity,
     # iteration2
-    "architectural_distinct_features": architectural_distinct_features,
-    "architectural_reflection": architectural_reflection,
-    "architectural_innovation": architectural_innovation,
+    # "architectural_distinct_features": architectural_distinct_features,
+    # "architectural_reflection": architectural_reflection,
+    # "architectural_innovation": architectural_innovation,
     "architectural_reservation": architectural_reservation,
-    "arts_traditional": arts_traditional,
-    "arts_reflection": arts_reflection,
-    "arts_mastery": arts_mastery,
-    "arts_preservation": arts_preservation,
-    "arts_tourist": arts_tourist,
-    "intangible_practices": intangible_practices,
-    "intangible_contribution": intangible_contribution,
-    "intangible_authenticity": intangible_authenticity,
-    "intangible_safeguarding": intangible_safeguarding,
-    "intangible_role": intangible_role,
-    "traditional_crafts": traditional_crafts,
-    "traditional_reflection": traditional_reflection,
-    "traditional_uniqueness": traditional_uniqueness,
-    "traditional_preservation": traditional_preservation,
-    "traditional_contribution": traditional_contribution
+    # "arts_traditional": arts_traditional,
+    # "arts_reflection": arts_reflection,
+    # "arts_mastery": arts_mastery,
+    # "arts_preservation": arts_preservation,
+    # "arts_tourist": arts_tourist,
+    # "intangible_practices": intangible_practices,
+    # "intangible_contribution": intangible_contribution,
+    # "intangible_authenticity": intangible_authenticity,
+    # "intangible_safeguarding": intangible_safeguarding,
+    # "intangible_role": intangible_role,
+    # "traditional_crafts": traditional_crafts,
+    # "traditional_reflection": traditional_reflection,
+    # "traditional_uniqueness": traditional_uniqueness,
+    # "traditional_preservation": traditional_preservation,
+    # "traditional_contribution": traditional_contribution
 }
 
 
@@ -142,6 +143,9 @@ async def main():
 
     wb.close()
     print("fin")
+    yag = yagmail.SMTP(user="sigurn7979@gmail.com", password='1250476871LDQ', host='smtp.gmail.com')
+    yag.send(to=['sigurn7979@gmail.com'], subject='FIN', contents=['FIN'])
 
 
 asyncio.run(main())
+
